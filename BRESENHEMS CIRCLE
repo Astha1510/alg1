@@ -22,7 +22,7 @@ void reflections(int x, int y) {
 	glVertex2i(-x, y);
 	glVertex2i(-y, x);
 }
-void circle(int r, int xc, int yc) {
+void circle(int r) {
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	glBegin(GL_POINTS);
@@ -39,7 +39,7 @@ void circle(int r, int xc, int yc) {
 	while(x <= y) {
 		cout<<"\n"<<x<<" "<<y;
 		//glVertex2i(x, y);
-		reflections(x+xc, y+yc);
+		reflections(x, y);
 		x = x + 1;
 		if(di <= 0) {
 			di = di + (4 * x) + 6;
