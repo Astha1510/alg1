@@ -1,0 +1,85 @@
+#include <windows.h>  // For MS Windows
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>  // GLUT, includes glu.h and gl.h
+#include <iostream>
+#include <cstdlib>
+#include<math.h>
+#include<dos.h>
+using namespace std;
+
+void reflections(int x, int y) {
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex2i(x, y);
+	glVertex2i(y, x);
+	glColor3f(0.0, 1.0, 0.0);
+	glVertex2i(x, -y);
+	glVertex2i(y, -x);
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex2i(-y, -x);
+	glVertex2i(-x, -y);
+	glColor3f(0.0, 1.0, 1.0);
+	glVertex2i(-x, y);
+	glVertex2i(-y, x);
+}
+void circle(int r, int xc, int yc) {
+	
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POINTS);
+	
+	int d0, di, x, y;
+	
+	d0 = 3 - (2 * r); // x -   0 -> r
+					  // y -   r -> 0
+	
+	cout<<"\n\nPoints Plotted : ";
+	di = d0;
+	x = 0;
+	y = r;
+	while(x <= y) {
+		cout<<"\n"<<x<<" "<<y;
+		//glVertex2i(x, y);
+		reflections(x+xc, y+yc);
+		x = x + 1;
+		if(di <= 0) {
+			di = di + (4 * x) + 6;
+		}
+		else {
+			y = y - 1;
+			di = di + (4 * (x - y)) + 10;
+		}
+	}
+	
+	cout<<"\n";
+	
+	glEnd();
+	glFlush();
+}
+void display(void) {
+	int r;
+	cout<<"\nEnter radius :\n";
+	cin>>r;
+	circle(r);
+}
+
+void myinit() {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glColor3f(1.0, 0.0, 0.0);
+	glPointSize(3.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-500.0, 500.0, -500.0, 500.0);
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("ASTHA");
+	glutDisplayFunc(display);
+
+	myinit();
+	glutMainLoop();
+	return 0;
+}
