@@ -1,0 +1,93 @@
+#include <windows.h>  // For MS Windows
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>  // GLUT, includes glu.h and gl.h
+#include <iostream>
+#include <cstdlib>
+#include<math.h>
+#include<dos.h>
+using namespace std;
+
+void line(int x1, int y1, int x2, int y2) {
+	
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POINTS);
+	
+	float m;
+	int dx, dy, d0, di, x, y;
+	
+	dy = (y2 - y1);
+	dx = (x2 - x1);
+	m = dy / dx;
+
+	
+	cout<<"\nm = "<<m<<"\ndx = "<<dx<<"\ndy = "<<dy<<"\nd0 = "<<d0;
+	cout<<"\n\nPoints Plotted : ";
+	if(fabs(m) <=1){
+		d0 = (2 * dy) - dx;
+		di = d0;
+		y = y1;
+		for(x = x1; x <= x2; x++) {
+			cout<<"\n"<<x<<" "<<y;
+			glVertex2i(x, y);
+			if(di <= 0) {
+				di = di + (2 * dy);
+			}
+			else {
+				di = di + (2 * dy) - (2 * dx);
+				y = y + 1;
+			}
+		}
+	}
+	else{
+		d0 = (2 * dx) - dy;
+		di = d0;
+		x = x1;
+		for(y = y1; y <= y2; y++) {
+			cout<<"\n"<<x<<" "<<y;
+			glVertex2i(x, y);
+			if(di <= 0) {
+				di = di + (2 * dx);
+			}
+			else {
+				di = di + (2 * dx) - (2 * dy);
+				x = x + 1;
+			}
+		}
+	}
+	
+	cout<<"\n";
+	
+	glEnd();
+	glFlush();
+}
+void display(void) {
+	int x1, y1, x2, y2;
+	cout<<"\nEnter point (x1, y1) :\n";
+	cin>>x1>>y1;
+	cout<<"Enter point (x2, y2) :\n";
+	cin>>x2>>y2;
+	line(x1, y1, x2, y2);
+}
+
+void myinit() {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glColor3f(1.0, 0.0, 0.0);
+	glPointSize(3.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, 499.0, 0.0, 499.0);
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("ASTHA");
+	glutDisplayFunc(display);
+
+	myinit();
+	glutMainLoop();
+	return 0;
+}
