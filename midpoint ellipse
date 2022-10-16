@@ -1,0 +1,100 @@
+
+#include <windows.h>  // For MS Windows
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>  // GLUT, includes glu.h and gl.h
+#include <iostream>
+#include <cstdlib>
+#include<math.h>
+#include<dos.h>
+using namespace std;
+
+void reflections(int x, int y) {
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex2i(x, y);
+	glVertex2i(x, -y);
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex2i(-x, y);
+	glVertex2i(-x, -y);
+}
+void ellipse(int a, int b) {
+	
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POINTS);
+	
+	int x = 0, y = 0;
+	float d0, di;
+	
+	d0 = ((a * a) / 4.0) + (b * b) - (a * a * b);
+	
+	cout<<"\n\nPoints Plotted : ";
+	di = d0;
+	d0 = 0;
+	y = b;
+	while(y >= 0) {
+		if((a * a * y) >= (b * b * x)) {
+			cout<<"\n"<<x<<" "<<y;
+			//glVertex2i(x, y);
+			reflections(x, y);
+			x++;
+			if(di <= 0) {
+				di += (2*b*b*x) + (3*b*b);
+			}
+			else {
+				y--;
+				di += (2*b*b*x) - (2*a*a*y) + (3*b*b) + (2*a*a);
+			}
+		}
+		else {
+			if(d0 == 0) {
+				d0 = ((b*b)*(x+0.5)*(x+0.5)) + ((a*a)*(y-1)*(y-1)) - (a*a*b*b);
+				di = d0;
+				continue;
+			}
+			y--;
+			if(di <= 0) {
+				x++;
+				di += (2*b*b*x) - (2*a*a*y) + (2*b*b) + (3*a*a);
+			}
+			else {
+				di += (3*a*a) - (2*a*a*y);
+			}
+			cout<<"\n"<<x<<" "<<y;
+			//glVertex2i(x, y);
+			reflections(x, y);
+		}
+	}
+	
+	cout<<"\n";
+	
+	glEnd();
+	glFlush();
+}
+void display(void) {
+	int a, b;
+	cout<<"\nEnter a and b :\n";
+	cin>>a>>b;
+	ellipse(a, b);
+}
+
+void myinit() {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glColor3f(1.0, 0.0, 0.0);
+	glPointSize(2.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-700.0, 700.0, -700.0, 700.0);
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(700, 700);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("ASTHA");
+	glutDisplayFunc(display);
+
+	myinit();
+	glutMainLoop();
+	return 0;
+}
