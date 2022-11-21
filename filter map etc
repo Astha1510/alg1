@@ -1,0 +1,117 @@
+def func1(d):
+    if d['Type'] == 'Dog':
+        return d['Age']
+    else:
+        return 0
+
+dct = {
+        'A101':{'Type':'Cat','Name':'Tauby','Age':6},
+        'A102':{'Type':'Dog','Name':'Tommy','Age':8},
+        'A103':{'Type':'Dog','Name':'Tiger','Age':10},
+        'A104':{'Type':'Dog','Name':'Simbha','Age':4}
+       }
+lst2 = list(map(func1,list(dct.values())))
+print('The sum of all dogs ages:',sum(lst2))
+Output:
+ 
+#map(function to apply, list of input)
+#we have to convert dct values to list because higher order function(filter(),map(),reduce() the take input in form of list
+# map( ) returns a map object which can be converted to a list using list( ) function
+
+2.
+lst = [1.25,3.22,4.68,10.95,32.55,12.54]
+area_list = list(map(lambda r:round(3.14*r*r,2),lst))
+print(area_list)
+# map( ) returns a map object which can be converted to a list using list( ) function
+Output:
+ 
+
+
+
+3.
+nums = [10,20,30,40,50,60,70,80]
+strs = ['A','B','C','D','E','F','G','H']
+res = list(map(lambda n1,n2:(n1,n2),nums,strs))
+print((res))
+
+Output:
+ 
+
+4.
+dict = {'Kanika':45,'Hasrat':34,'Mani':23,'Leena':50}
+res = list(filter(lambda n:n[1]>=40,dict.items()))
+print(res)
+Output:
+ 
+5.
+lst = ['Malayalam','Drawings','Madamlamadam','1234321']
+lst1 = list(filter(lambda x:(x == ' '.join(reversed(x))),lst))
+print(lst1)
+#x == ‘ ‘- is separating single word and comparing it with single letter of reversed word
+Since it is comparing single word we have to join it latter on
+Filter is being used because we are  checking whether number is palindrome or not
+Output:
+ 
+
+
+
+
+6.
+lst = [ 'Maneesh', 'Rameshwar', 'Patrick', 'Mahalaxmi', 'Kashmira', 'Neeraj']
+lst1 = filter(lambda x: len(x)>=8,lst)
+print(list(lst1))
+Output:
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7.
+def func1(d):
+    if d['Grade'] == 'Highly-Skilled':
+        return d['FirstName']+d['LastName']
+    else:
+        return 0
+    
+        
+def func2(n):
+    if n==0:
+        return False
+    else:
+        return True
+
+dct = {
+        'A101':{'FirstName':'Ram','LastName':'Devgan','Age':6,'Grade':'Skilled'},
+        'A102':{'FirstName':'Deeraj','LastName':'Kishor','Age':8,'Grade':'Highly-Skilled'},
+        'A103':{'FirstName':'Himesh','LastName':'Bhatia','Age':10,'Grade':'SemiSkilled'},
+        'A104':{'FirstName':'Rajat','LastName':'Singh','Age':4,'Grade':'Skilled'},
+        'A105':{'FirstName':'Rahul','LastName':'Singh','Age':3,'Grade':'Highly-Skilled'}
+       }
+
+lst2 = list(map(func1,list(dct.values())))
+lst3 = list(filter(func2,lst2))
+print('The firstname and lastname is:',(lst3))  
+
+# first we used map inorder to concatenate firstname and lastname 
+#then we applied filter in order to remove unwanted 0 values
+
