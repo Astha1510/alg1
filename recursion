@@ -1,0 +1,54 @@
+def isVowel(ch):
+    return ch.upper() in ['A', 'E', 'I', 'O', 'U']
+
+def countVovels(str, n):
+    if (n == 1):
+        return isVowel(str[n - 1]);
+ 
+    return (countVovels(str, n - 1) +isVowel(str[n - 1])); #recursive function call
+ 
+str = "abc de";
+print(countVovels(str, len(str)))
+
+Output:
+ 
+2.
+def power(base,exp):
+    if(exp == 1):
+        return(base)
+    else:
+        return(base*power(base,exp-1))
+base = int(input('Enter the base'))
+exp = int(input('Enter exp value'))
+print("Result",power(base,exp))
+ 
+3.
+def reverse(n,r):
+    if n == 0:
+        return r
+    else:
+        return reverse(n//10,r*10+n%10)
+
+number = int(input('Enter a number'))
+reversed_number = reverse(number,0)
+print('reversed is',(number,reversed_number))
+ 
+
+
+4.
+def palindrome(s):
+    if len(s) < 1:
+        return True
+    else:
+        if s[0] == s[-1]:
+             return palindrome(s[1:-1])
+        else:
+            return False
+str = str(input('Enter a string'))
+if(palindrome(str)== True):
+    print('Number is palindrome')
+else:
+    print('Number is not palindrome')
+ 
+ 
+   
