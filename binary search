@@ -1,0 +1,38 @@
+#include <stdio.h>  
+int main() {  
+
+int n,val,i;
+int mid ;
+  printf("Enter  the elements: \n");
+  scanf("%d",&n);
+  int a[n];
+  printf("the %d elements are: \n",n);
+  
+  for(int i = 0;i<n;i++)
+  {
+  	scanf("%d",&a[i]);
+  }  
+  
+
+  printf("\nElement to be searched ");  
+  scanf("%d",&val);
+  int l=0,r = n-1;
+      mid = (l+r)/2;
+    while (l<r)  
+    {  
+         if (a[mid] == val){
+            printf("%d found at location %d", val, mid+1);
+            break;
+         }
+        else if(val<a[mid]){
+            r = mid-1;
+            mid = (l+r)/2;
+        }
+        else{
+            l = mid+1;
+        }  
+        printf("\nThe number, %d is not found in given Array", val);
+    
+    }
+       return 0;
+}
