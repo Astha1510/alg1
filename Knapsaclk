@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+void swapI(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+void swapF(float *a, float *b) {
+    float t = *a;
+    *a = *b;
+    *b = t;
+}
+//              pw       id       w        profit   n
+void sort(float a[], int b[], int c[], int d[], int n) {
+    //selection sort based on p/w that is a[]
+    for (int i = 0; i < n - 1; i++)
+    {
+        int max_idx = i;
+        for (int j = i + 1; j < n; j++)
+            if (a[j] > a[max_idx])
+                max_idx = j;
+
+        if(max_idx != i) {
+            swapF(&a[max_idx], &a[i]);
+            swapI(&b[max_idx], &b[i]);
+            swapI(&c[max_idx], &c[i]);
+            swapI(&d[max_idx], &d[i]);
+        }
+    }
+}
+
+int main() {
+    int n = 7,i,ks = 15;
+    int id[] = {1, 2, 3, 4, 5, 6, 7};
+    int profit[] = {5, 10, 15, 7, 8, 9, 4};
+    int w[] = {1, 3, 5, 4, 1, 3, 2};
+    float pw[n];
+    
+    for(i = 0; i < n; i++)
+        pw[i] = (float)profit[i] / w[i];
+    
+    printf("Before Sorting\nID\tProfit\t\tWeight\t\tP/W\n");
+    for(i = 0; i < n; i++)
+        printf("%d\t%d\t\t%d\t\t%f\n", id[i], profit[i], w[i], pw[i]);
+    
+    sort(pw, id, w, profit, n);
+    
+    printf("\nAfter Sorting\nID\tProfit\t\tWeight\t\tP/W\n");
+    for(i = 0; i < n; i++)
+        printf("%d\t%d\t\t%d\t\t%f\n", id[i], profit[i], w[i], pw[i]);
+    
+    float totalprofit = 0.0;
+    
+    i = 0;
+    while(i < n && ks != 0) {
+        if(w[i] > ks) { 
+            float r = ks / w[i];
+            totalprofit += (profit[i] * r);
+            ks = 0;
+        }
+        else {
+            totalprofit += profit[i];
+            ks -= w[i];
+        }
+        i++;
+    }
+    
+    printf("\nTotal profit = %f", totalprofit);
+    return 0;
+}
