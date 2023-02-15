@@ -1,0 +1,39 @@
+//job sequence
+#include<stdio.h>
+
+struct job{
+	int num;
+	int profit;
+	int deadline;
+};
+int main(){
+	int a;
+	printf("\nEnter number of job : ");
+	scanf("%d",&a);
+	struct job list[a];
+	for(int i=0;i<a;i++){
+		int p,d;
+		printf("\nEnter profit and deadline : ");
+		scanf("%d %d",&p,&d);
+		list[i].num = i+1;
+		list[i].profit = p;
+		list[i].deadline = d;
+	}
+	printf("\njob \t\t sequence \t t_profit");
+	for(int i=0;i<a-1;i++){
+		for(int j=i+1;j<a;j++){
+			if(list[i].deadline + list[j].deadline > 2){
+				int p,q;	
+				if(list[i].deadline<list[j].deadline){
+					p = list[i].num;
+					q = list[j].num;
+				}
+				else{
+					p = list[j].num;
+					q = list[i].num;
+				}
+				printf("\n( %d , %d ) \t ( %d , %d ) \t %d ",list[i].num,list[j].num,p,q,list[i].profit+list[j].profit);
+			}
+		}
+	}
+}
