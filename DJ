@@ -1,0 +1,129 @@
+# include<iostream>
+
+using namespace std;
+
+# define inf 999
+
+struct vertex_info
+{
+	int no;
+	int known;
+	
+	int dv;
+	int pv;
+};
+
+int main()
+{
+	int n , ed , i , j , ev , sv , wt , st;
+	struct vertex_info T[10];
+	
+	cout<<"Enter Number of Nodes : ";
+	cin>>n;
+	
+	int arr[n+1][n+1];
+	int status[n];
+	
+	for(i = 1 ; i <= n ; i++)
+	{
+		for(j = 1 ; j <= n ; j++)
+		{
+			arr[i][j] = 0;
+		}
+	}
+	
+	arr[1][2] = 2;
+	arr[1][4] = 1;
+	arr[2][4] = 3;
+	arr[2][5] = 10;
+	
+	arr[3][1] = 4;
+	arr[3][6] = 5;
+	arr[4][3] = 2;
+	arr[4][5] = 7;
+	
+	arr[4][6] = 8;
+	arr[4][7] = 4;
+	arr[5][7] = 6;
+	arr[7][6] = 1;
+	
+	/*cout<<"Enter Number of Edges : ";
+	cin>>ed;
+	
+	for(i = 1 ; i <= ed ; i++)
+	{
+		cout<<"Enter Start Vertex and End Vertex :  ";
+		cin>>sv>>ev;
+		cout<<"Enter Weight :  ";
+		cin>>wt;
+		arr[sv][ev] = wt;
+			
+	}*/
+	
+	for(i = 1 ; i <= n ; i++)
+	{
+		for(j = 1 ; j <= n ; j++)
+		{
+			cout<<arr[i][j]<<"  ";
+		}
+		cout<<"\n";
+	}
+	
+	for(i = 1 ; i <= n ; i++ )
+	{
+		T[i].no = i;
+		T[i].known = 0;
+		T[i].dv = inf;
+		T[i].pv = inf;	
+	}
+	
+	cout<<"Enter The Start Vertex :";
+	cin>>st;
+	
+	T[st].dv = 0;
+	T[st].pv = 0;
+	
+	int min , pos , cv;
+	
+	while(1)
+		{
+			min = inf;
+			for(i = 1 ; i <= n ;i++)
+			{
+				if( ! T[i].known )
+				{
+					if(T[i].dv < min)			
+					{
+						min = T[i].dv;
+						pos = i;
+					}
+				}
+			}
+			
+			if(min == inf)
+				break;
+				
+			cv = pos;
+			T[cv].known = 1;
+			
+			for(i = 1 ; i <= n ; i++)
+			{
+				if(arr[cv][i] != 0 && T[i].known != 1)
+				{
+					if(T[i].dv > T[cv].dv+arr[cv][i])
+					{
+						T[i].dv = T[cv].dv+arr[cv][i];
+						T[i].pv = cv;
+					}
+				}
+			}	
+			
+		}
+		
+		cout<<endl;
+		for(i = 1 ; i <= n ; i++)
+		{
+			cout<<T[i].no<<"\t"<<T[i].known<<"\t"<<T[i].dv<<"\t"<<T[i].pv<<endl;
+		}
+		
+}
