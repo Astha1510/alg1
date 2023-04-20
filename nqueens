@@ -1,0 +1,65 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int *ans,n,count;
+
+bool place(int Q,int pos)
+{
+	for(int i=1;i<Q;i++)
+		if(ans[i]==pos||abs(ans[i]-pos)==abs(i-Q))
+			return false;
+		return true;
+	
+}
+
+
+
+void printboard()
+{
+	cout<<endl;
+	for(int i=1;i<=n;i++)
+	{
+		for(int j = 1;j<=n;j++)
+		{
+			if(ans[i]==j)
+				cout<<"Q";
+			else
+				cout<<".";
+			
+			
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+void Nqueens(int Q)
+{
+	for(int i = 1;i<=n;i++)
+	{
+		if(place(Q,i))
+		{
+			ans[Q] = i;
+			if(Q==n)
+			{
+				printboard();
+				count++;
+				
+			}
+			else
+			{
+				Nqueens(Q+1);
+			}
+		}
+	}	
+}
+int main()
+{
+	count = 0;
+	cout<<"Enter the number of queens";
+	cin>>n;
+	ans = new int[n+1];	
+	Nqueens(1);
+	cout<<endl<<"Number of sol found"<<count;
+	return 0;
+}
