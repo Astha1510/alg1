@@ -1,0 +1,90 @@
+User
+Given two strings A and B which may contains special character #. You can
+replace # with any alphabetic character. WAP to tell whether it is possible to
+make both strings same or not.
+ Input: A = "data#tructures", B = "datastructures" Output: Yes
+2. WAP to check whether two strings can be made equal by increasing prefixes
+(ASCII values).
+ Input: string 1=”abcd”, string 2=”bcdd” Output: Yes
+3. WAP to check whether two strings can be made equal by copying their
+characters with the adjacent ones.
+ Input: str1 = “abc”, str2 = “fac” Output: Yes
+ str1 = “abc” -> “aac”, str2 = “fac” -> “aac”
+ code in simplest c++
+
+ChatGPT
+Certainly! Here's the simplest C++ code for each of the given problems:
+
+Make both strings the same by replacing #:
+cpp
+Copy code
+#include <iostream>
+
+bool canMakeEqual(std::string A, std::string B) {
+    for (char& c : A) {
+        if (c == '#') {
+            c = 'a';  // Replace # with 'a'
+        }
+    }
+
+    for (char& c : B) {
+        if (c == '#') {
+            c = 'a';  // Replace # with 'a'
+        }
+    }
+
+    return A == B;
+}
+
+int main() {
+    std::string A = "data#tructures";
+    std::string B = "datastructures";
+
+    std::cout << (canMakeEqual(A, B) ? "Yes" : "No") << std::endl;
+
+    return 0;
+}
+Check if two strings can be made equal by increasing prefixes (ASCII values):
+cpp
+Copy code
+#include <iostream>
+
+bool canMakeEqualByIncreasingPrefix(std::string str1, std::string str2) {
+    for (int i = 1; i < str1.length(); ++i) {
+        if (str1[i] - str1[i - 1] > str2[i] - str2[i - 1]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    std::string str1 = "abcd";
+    std::string str2 = "bcdd";
+
+    std::cout << (canMakeEqualByIncreasingPrefix(str1, str2) ? "Yes" : "No") << std::endl;
+
+    return 0;
+}
+Check if two strings can be made equal by copying characters with the adjacent ones:
+cpp
+Copy code
+#include <iostream>
+#include <algorithm>
+
+bool canMakeEqualByCopyingAdjacent(std::string str1, std::string str2) {
+    std::sort(str1.begin(), str1.end());
+    std::sort(str2.begin(), str2.end());
+
+    return str1 == str2;
+}
+
+int main() {
+    std::string str1 = "abc";
+    std::string str2 = "fac";
+
+    std::cout << (canMakeEqualByCopyingAdjacent(str1, str2) ? "Yes" : "No") << std::endl;
+
+    return 0;
+}
